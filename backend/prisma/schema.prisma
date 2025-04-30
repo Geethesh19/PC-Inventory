@@ -1,0 +1,40 @@
+generator client {
+    provider = "prisma-client-js"
+}
+
+datasource db {
+    provider = "mongodb"
+    url      = env("DATABASE_URL")
+}
+
+model PC {
+    id         String  @id @default(auto()) @map("_id") @db.ObjectId
+    assetId    String  @unique
+    model      String
+    make       String
+    macAddress String?
+    ipAddress  String?
+    os         String?
+    ram        String?
+    hardDisk   String?
+    metadata   Json?
+    user       User?   @relation(fields: [userId], references: [id])
+    userId     String? @db.ObjectId
+}
+
+enum Role {
+    user
+    admin
+}
+
+model User {
+    id          String  @id @default(auto()) @map("_id") @db.ObjectId
+    username    String  @unique
+    name        String
+    email       String  @unique
+    role        Role    @default(user)
+    password    String
+    designation String?
+    division    String?
+    computers   PC[]
+}

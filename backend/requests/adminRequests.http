@@ -1,0 +1,65 @@
+### Login Admin
+POST http://localhost:4000/api/admin/login
+Content-Type: application/json
+
+{
+    "username": "admin",
+    "password": "Admin@2024"
+}
+
+### Read Admin
+GET http://localhost:4000/api/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQ1MzI4MDA5LCJleHAiOjE3NDU5MzI4MDl9.N3G8t-Q0tPP4F7tkMlyPV5I2F9w5c9HNgPHJEnssghw
+
+### Update Admin
+PUT http://localhost:4000/api/admin
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQ1MzI4MDA5LCJleHAiOjE3NDU5MzI4MDl9.N3G8t-Q0tPP4F7tkMlyPV5I2F9w5c9HNgPHJEnssghw
+
+{
+    "name": "System Admin",
+    "username": "admin",
+    "email": "admin@example.com",
+    "password": "Admin@2024"
+}
+
+### Delete Admin
+DELETE http://localhost:4000/api/admin
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQ1MzI4MDA5LCJleHAiOjE3NDU5MzI4MDl9.N3G8t-Q0tPP4F7tkMlyPV5I2F9w5c9HNgPHJEnssghw
+
+### Create PC
+POST http://localhost:4000/api/admin/pc
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQ1MzI4MDA5LCJleHAiOjE3NDU5MzI4MDl9.N3G8t-Q0tPP4F7tkMlyPV5I2F9w5c9HNgPHJEnssghw
+
+{
+    "assetId": "PC-001",
+    "model": "OptiPlex 7090",
+    "make": "Dell",
+    "macAddress": "00:1B:44:11:3A:B7",
+    "ipAddress": "192.168.1.100",
+    "os": "Windows 10",
+    "ram": "16GB",
+    "hardDisk": "500GB",
+    "username": "geethesh",
+    "metadata": {
+        "location": "Office",
+        "department": "IT",
+        "purchaseDate": "2023-01-01",
+        "warrantyExpiry": "2024-01-01"
+    }
+}
+
+### Update PC
+PUT http://localhost:4000/api/admin/pc/PC-001
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQ1MzI4MDA5LCJleHAiOjE3NDU5MzI4MDl9.N3G8t-Q0tPP4F7tkMlyPV5I2F9w5c9HNgPHJEnssghw
+
+{
+    "ram": "32GB",
+    "hardDisk": "1TB"
+}
+
+### Delete PC
+DELETE http://localhost:4000/api/admin/pc/PC001
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImFkbWluIiwiaWF0IjoxNzQ1MzI4MDA5LCJleHAiOjE3NDU5MzI4MDl9.N3G8t-Q0tPP4F7tkMlyPV5I2F9w5c9HNgPHJEnssghw
