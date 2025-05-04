@@ -118,6 +118,17 @@ function AdminDashboard({ token, onLogout }) {
         }
     };
 
+    // Add this function to get all unique metadata keys
+    const getMetadataColumns = () => {
+        const keys = new Set();
+        pcs.forEach((pc) => {
+            if (pc.metadata && typeof pc.metadata === "object") {
+                Object.keys(pc.metadata).forEach((key) => keys.add(key));
+            }
+        });
+        return Array.from(keys);
+    };
+
     return (
         <div
             className="min-vh-100 min-vw-100 d-flex justify-content-center align-items-center"
@@ -443,7 +454,9 @@ function AdminDashboard({ token, onLogout }) {
                                             <th>OS</th>
                                             <th>RAM</th>
                                             <th>Hard Disk</th>
-                                            <th>Metadata</th>
+                                            {getMetadataColumns().map((key) => (
+                                                <th key={key}>{key}</th>
+                                            ))}
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -483,71 +496,31 @@ function AdminDashboard({ token, onLogout }) {
                                                 <td>{pc.os}</td>
                                                 <td>{pc.ram}</td>
                                                 <td>{pc.hardDisk}</td>
-                                                <td>
-                                                    {pc.metadata &&
-                                                    typeof pc.metadata ===
-                                                        "object" &&
-                                                    Object.keys(pc.metadata)
-                                                        .length > 0 ? (
-                                                        <div className="d-flex flex-column gap-1">
-                                                            {Object.entries(
-                                                                pc.metadata
-                                                            ).map(
-                                                                ([
-                                                                    key,
-                                                                    value
-                                                                ]) => (
-                                                                    <div
-                                                                        key={
-                                                                            key
-                                                                        }
-                                                                        className="d-flex align-items-center gap-2"
-                                                                    >
-                                                                        <span
-                                                                            className="badge px-2 py-1"
-                                                                            style={{
-                                                                                fontSize:
-                                                                                    "0.92em",
-                                                                                color: "#212529", // dark black
-                                                                                backgroundColor:
-                                                                                    "#f8f9fa",
-                                                                                fontWeight: 700
-                                                                            }}
-                                                                        >
-                                                                            {
-                                                                                key
-                                                                            }
-                                                                        </span>
-                                                                        <span
-                                                                            className="badge px-2 py-1"
-                                                                            style={{
-                                                                                fontSize:
-                                                                                    "0.92em",
-                                                                                color: "#6c757d", // light black
-                                                                                backgroundColor:
-                                                                                    "#f8f9fa",
-                                                                                fontWeight: 500
-                                                                            }}
-                                                                        >
-                                                                            {typeof value ===
-                                                                            "object"
-                                                                                ? JSON.stringify(
-                                                                                      value
-                                                                                  )
-                                                                                : String(
-                                                                                      value
-                                                                                  )}
-                                                                        </span>
-                                                                    </div>
-                                                                )
-                                                            )}
-                                                        </div>
-                                                    ) : (
-                                                        <span className="text-muted">
-                                                            -
-                                                        </span>
-                                                    )}
-                                                </td>
+                                                {getMetadataColumns().map(
+                                                    (key) => (
+                                                        <td key={key}>
+                                                            {pc.metadata &&
+                                                            pc.metadata[key]
+                                                                ? typeof pc
+                                                                      .metadata[
+                                                                      key
+                                                                  ] === "object"
+                                                                    ? JSON.stringify(
+                                                                          pc
+                                                                              .metadata[
+                                                                              key
+                                                                          ]
+                                                                      )
+                                                                    : String(
+                                                                          pc
+                                                                              .metadata[
+                                                                              key
+                                                                          ]
+                                                                      )
+                                                                : "-"}
+                                                        </td>
+                                                    )
+                                                )}
                                             </tr>
                                         ))}
                                     </tbody>

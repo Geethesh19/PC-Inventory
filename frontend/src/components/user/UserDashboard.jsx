@@ -4,6 +4,7 @@ function UserDashboard({ token, onLogout }) {
     const [pcs, setPCs] = useState([]);
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
+    const [metadataKeys, setMetadataKeys] = useState([]);
 
     useEffect(() => {
         fetch("http://localhost:4000/api/user/pcs", {
@@ -15,6 +16,16 @@ function UserDashboard({ token, onLogout }) {
             })
             .then((data) => {
                 setPCs(data);
+                // Extract all unique metadata keys
+                const keys = new Set();
+                data.forEach((pc) => {
+                    if (pc.metadata && typeof pc.metadata === "object") {
+                        Object.keys(pc.metadata).forEach((key) =>
+                            keys.add(key)
+                        );
+                    }
+                });
+                setMetadataKeys(Array.from(keys));
                 setLoading(false);
             })
             .catch((err) => {
@@ -132,9 +143,14 @@ function UserDashboard({ token, onLogout }) {
                                         <th style={{ color: "#1e293b" }}>
                                             Hard Disk
                                         </th>
-                                        <th style={{ color: "#1e293b" }}>
-                                            Metadata
-                                        </th>
+                                        {metadataKeys.map((key) => (
+                                            <th
+                                                key={key}
+                                                style={{ color: "#1e293b" }}
+                                            >
+                                                {key}
+                                            </th>
+                                        ))}
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -169,68 +185,29 @@ function UserDashboard({ token, onLogout }) {
                                             <td style={{ color: "#475569" }}>
                                                 {pc.hardDisk}
                                             </td>
-                                            <td>
-                                                {pc.metadata &&
-                                                typeof pc.metadata ===
-                                                    "object" &&
-                                                Object.keys(pc.metadata)
-                                                    .length > 0 ? (
-                                                    <div className="d-flex flex-column gap-1">
-                                                        {Object.entries(
-                                                            pc.metadata
-                                                        ).map(
-                                                            ([key, value]) => (
-                                                                <div
-                                                                    key={key}
-                                                                    className="d-flex align-items-center gap-2"
-                                                                >
-                                                                    <span
-                                                                        className="badge px-2 py-1"
-                                                                        style={{
-                                                                            fontSize:
-                                                                                "0.92em",
-                                                                            color: "#212529",
-                                                                            backgroundColor:
-                                                                                "#f8f9fa",
-                                                                            fontWeight: 700
-                                                                        }}
-                                                                    >
-                                                                        {key}
-                                                                    </span>
-                                                                    <span
-                                                                        className="badge px-2 py-1"
-                                                                        style={{
-                                                                            fontSize:
-                                                                                "0.92em",
-                                                                            color: "#6c757d",
-                                                                            backgroundColor:
-                                                                                "#f8f9fa",
-                                                                            fontWeight: 500
-                                                                        }}
-                                                                    >
-                                                                        {typeof value ===
-                                                                        "object"
-                                                                            ? JSON.stringify(
-                                                                                  value
-                                                                              )
-                                                                            : String(
-                                                                                  value
-                                                                              )}
-                                                                    </span>
-                                                                </div>
-                                                            )
-                                                        )}
-                                                    </div>
-                                                ) : (
-                                                    <span
-                                                        style={{
-                                                            color: "#cbd5e1"
-                                                        }}
-                                                    >
-                                                        -
-                                                    </span>
-                                                )}
-                                            </td>
+                                            {metadataKeys.map((key) => (
+                                                <td
+                                                    key={key}
+                                                    style={{ color: "#475569" }}
+                                                >
+                                                    {pc.metadata &&
+                                                    pc.metadata[key]
+                                                        ? typeof pc.metadata[
+                                                              key
+                                                          ] === "object"
+                                                            ? JSON.stringify(
+                                                                  pc.metadata[
+                                                                      key
+                                                                  ]
+                                                              )
+                                                            : String(
+                                                                  pc.metadata[
+                                                                      key
+                                                                  ]
+                                                              )
+                                                        : "-"}
+                                                </td>
+                                            ))}
                                         </tr>
                                     ))}
                                 </tbody>
