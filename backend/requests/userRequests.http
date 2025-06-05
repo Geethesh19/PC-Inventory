@@ -1,0 +1,56 @@
+### Create User - 1
+POST http://localhost:4000/api/user
+Content-Type: application/json
+
+{
+    
+    "name": "Geethesh",
+    "username": "geethesh",
+    "email": "geethu2k5@gmail.com",
+    "password": "Geethesh@2024",
+    "division": "Engineering",
+    "designation": "SDE"
+}
+
+### Login User
+POST http://localhost:4000/api/user/login
+Content-Type: application/json
+
+{
+    "username": "geethesh",
+    "password": "Geethesh@2024"
+}
+
+### Read User
+GET http://localhost:4000/api/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdlZXRoZXNoIiwiaWF0IjoxNzQ1MzI4MDM5LCJleHAiOjE3NDU5MzI4Mzl9.THhYaR1TAWUSs7nGfAg9PkIREwI2-Rqa_Sm-u4t3nCI
+
+### Update User - Edit Details
+PUT http://localhost:4000/api/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdlZXRoZXNoIiwiaWF0IjoxNzQ1MzI4MDM5LCJleHAiOjE3NDU5MzI4Mzl9.THhYaR1TAWUSs7nGfAg9PkIREwI2-Rqa_Sm-u4t3nCI
+
+{
+    "name": "Geethesh",
+    "username": "geethesh",
+    "email": "geethu2k5@gmail.com",
+    "password": "Geethesh@2024"
+}
+
+### Update User - Change Password
+PUT http://localhost:4000/api/user
+Content-Type: application/json
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdlZXRoZXNoIiwiaWF0IjoxNzQ1MzI4MDM5LCJleHAiOjE3NDU5MzI4Mzl9.THhYaR1TAWUSs7nGfAg9PkIREwI2-Rqa_Sm-u4t3nCI
+
+{
+    "oldPassword": "Geethesh@2024",
+    "newPassword": "Geethesh@2024"
+}
+
+### Delete User
+DELETE http://localhost:4000/api/user
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdlZXRoZXNoIiwiaWF0IjoxNzQ1MzI4MDM5LCJleHAiOjE3NDU5MzI4Mzl9.THhYaR1TAWUSs7nGfAg9PkIREwI2-Rqa_Sm-u4t3nCI
+
+### Read PCs
+GET http://localhost:4000/api/user/pcs
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6ImdlZXRoZXNoIiwiaWF0IjoxNzQ1MzI4MDM5LCJleHAiOjE3NDU5MzI4Mzl9.THhYaR1TAWUSs7nGfAg9PkIREwI2-Rqa_Sm-u4t3nCI
